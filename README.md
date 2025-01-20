@@ -1,36 +1,138 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+### 1. Next.js 프로젝트 설치
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm create next-app@latest
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Next.js 프로젝트 실행
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. shadcn-ui 설정
 
-## Learn More
+npm 사용 시
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npx shadcn@latest init
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+pnpm 사용 시
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm dlx shadcn@latest init
+```
 
-## Deploy on Vercel
+[Next.js](https://ui.shadcn.com/docs/installation/next)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**✅ Shadcn-ui 선택 추가**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+npm 사용 시
+
+```bash
+npx shadcn@latest add
+```
+
+pnpm 사용 시
+
+```bash
+pnpm dlx shadcn@latest add
+```
+
+스페이스로 설치할 컴포넌트를 선택하고 엔터를 눌러 설치하면 됩니다.
+
+<br/>
+
+**✅ Shadcn-ui 모두 설치**
+
+npm 사용 시
+
+```bash
+npx shadcn@latest -all
+```
+
+pnpm 사용 시
+
+```bash
+pnpm dlx shadcn@latest -all
+```
+
+Sahdcn-ui 설정
+
+[Next.js](https://ui.shadcn.com/docs/installation/next)
+
+### 3. Tailwind + Prettier 설정
+
+https://github.com/tailwindlabs/prettier-plugin-tailwindcss
+
+npm 사용 시
+
+```bash
+npm install -D prettier-plugin-tailwindcss
+```
+
+pnpm 사용 시
+
+```bash
+pnpm add -D prettier-plugin-tailwindcss
+```
+
+[Editor Setup - Tailwind CSS](https://tailwindcss.com/docs/editor-setup#automatic-class-sorting-with-prettier)
+
+.prettierrc 파일 생성 후 플러그인추가
+
+```json
+// .prettierrc
+{
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindFunctions": ["clsx"]
+}
+```
+
+위 설정을 통해 clsx 나 cva 를 이용할 때도 Sorting이 가능합니다!
+
+### 4. Tailwind **Preprocessors 설정**
+
+Tailwind를 새로운 프로젝트에 사용하고 있으며 기존 Sass/Less/Stylus 스타일시트와 통합할 필요가 없다면, 별도의 전처리기를 사용하는 대신 다른 PostCSS 플러그인을 사용하여 사용하는 전처리기 기능을 추가하는 것을 적극 고려해야 합니다.
+
+<aside>
+⚠️
+
+Tailwind 에서 권장하지 않는다고는 하나 별도의 스타일을 지정할 수 있어야 하는 경우가 많기 때문에 사용합니다. 해당설정은 Tailwind 4.0 에서 기본 지원되는 형태로 변경되기 때문에 4.0 버전을 사용한다면 적용하지 않아도 됩니다.
+
+</aside>
+
+Tailwind CSS 4.0 변경사항 문서 링크
+
+[Tailwind CSS v4.0 Beta - Tailwind CSS](https://tailwindcss.com/docs/v4-beta#whats-new-in-v4-0)
+
+npm 사용 시
+
+```bash
+npm install -D postcss-import postcss-nesting autoprefixer
+```
+
+pnpm 사용시
+
+```bash
+pnpm add -D postcss-import postcss-nesting autoprefixer
+```
+
+```tsx
+// postcss.config.js
+module.exports = {
+  plugins: {
+    'postcss-import': {},
+    'tailwindcss/nesting': {},
+    tailwindcss: {},
+    autoprefixer: {},
+  }
+}
+```
+
+[Using with Preprocessors - Tailwind CSS](https://tailwindcss.com/docs/using-with-preprocessors)
+
+Autoprefixer 관련 내용
+
+[Browser Support - Tailwind CSS](https://tailwindcss.com/docs/browser-support#vendor-prefixes)
