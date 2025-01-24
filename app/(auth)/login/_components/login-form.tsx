@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { redirect } from "next/navigation";
+import { signIn } from "@/auth";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 export async function LoginForm({
   className,
@@ -28,7 +29,9 @@ export async function LoginForm({
           <form
             action={async () => {
               "use server";
-              redirect("/");
+              await signIn("google", {
+                redirectTo: DEFAULT_LOGIN_REDIRECT,
+              });
             }}
           >
             <div className="flex flex-col gap-6">
