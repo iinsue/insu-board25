@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signIn } from "@/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { CredentialsForm } from "./credentials";
 
 export async function LoginForm({
   className,
@@ -26,27 +27,8 @@ export async function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-6">
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="xxxx@gmail.com" />
-          </div>
-          <form className="grid gap-6">
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <a
-                  href="#"
-                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                >
-                  Forgot your password?
-                </a>
-              </div>
-              <Input id="password" type="password" placeholder="*******" />
-            </div>
-            <Button type="submit" className="w-full">
-              Login
-            </Button>
-          </form>
+          <CredentialsForm />
+
           <div className="space-y-2">
             <form
               action={async () => {
