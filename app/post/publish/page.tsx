@@ -1,7 +1,10 @@
 "use client";
 
 import { z } from "zod";
+import { toast } from "sonner";
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Input } from "@/components/ui/input";
@@ -13,16 +16,17 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { useTransition } from "react";
+
 import { publishPost } from "./actions";
-import { toast } from "sonner";
 
 export const FormSchema = z.object({
   title: z.string(),
 });
 
 const PublishPostPage = () => {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -33,8 +37,13 @@ const PublishPostPage = () => {
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     startTransition(async () => {
       const response = await publishPost(data);
-      if (!!response.success) {
+      if (response.success) {
         toast.success(`${response.success}`, { id: "post" });
+        router.replace("/post");
+      }
+
+      if (response.error) {
+        toast.error(`${response.error}`, { id: "post" });
       }
     });
   };
